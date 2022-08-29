@@ -12,7 +12,7 @@ VITÓRIA:
         - Esquerda pra direita OK
         - Direita pra esquerda OK
 - Mostrar onde vitória aconteceu OK
-    (highlite nas peças vencedoras)
+    (highlite nas peças vencedoras) OK
 
 ANIMAÇÕES:
 - Animação de introdução
@@ -28,9 +28,11 @@ MENU PRINCIPAL:
 - Botão pra habilitar / desabilitar efeitos sonoros
 
 PIXEL ARTS:
-- Botão play
+- Botão ativar som OK
+- Botão desativar som OK
 - Botão pra trocar pro modo noturno
-- Botão pra habilitar / desabilitar efeitos sonoros 
+- Botão fechar jogo OK
+- Botão resetar partida OK
 - Fundo noturno
     - Uma arte fixa
     - Nuvens e estrelas que passam na tela

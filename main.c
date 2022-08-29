@@ -2,6 +2,7 @@
 #include "headers/board.h"
 #include "headers/player.h"
 #include "headers/winCondition.h"
+#include "headers/button.h"
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -44,13 +45,29 @@ int main()
 	Texture2D redPieceTexture = LoadTexture("images/redPiece.png");
 	Texture2D highlitePieceTexture = LoadTexture("images/highlitePiece.png");
 
-	Texture2D nightBackgroundTexture = LoadTexture("images/background/night2.png");
+	Texture2D dayBackgroundTexture = LoadTexture("images/background/day.png");
+
+	Button volumeOnButton;
+	Button volumeOffButton;
+	Button exitGameButton;
+	Button restartGameButton;
+
+	volumeOnButton.texture = LoadTexture("images/buttons/buttonSoundOn.png");
+	volumeOffButton.texture = LoadTexture("images/buttons/buttonSoundOff.png");
+	exitGameButton.texture = LoadTexture("images/buttons/buttonExitGame.png");
+	restartGameButton.texture = LoadTexture("images/buttons/buttonRestartGame.png");
+
+	Button topRightButtons[3] = {exitGameButton,
+								volumeOffButton, 
+								restartGameButton};
 
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
+		DrawTextureEx(dayBackgroundTexture, (Vector2){0, 0}, 0, 1.0f, RAYWHITE);
 
+		DrawTopRightButtons(topRightButtons);
 		DrawBoard(board, boardTexture, yellowPieceTexture, redPieceTexture);
 		
 		if (turn == 1)
@@ -78,7 +95,7 @@ int main()
 	UnloadTexture(yellowPieceTexture);
 	UnloadTexture(redPieceTexture);
 
-	UnloadTexture(nightBackgroundTexture);
+	UnloadTexture(dayBackgroundTexture);
 
 	UnloadSound(coinSound);
 
