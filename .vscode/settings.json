@@ -1,0 +1,9 @@
+{
+    "C_Cpp.errorSquiggles": "Enabled",
+    "files.associations": {
+        "stdlib.h": "c",
+        "soundbar.h": "c",
+        "raylib.h": "c",
+        "player.h": "c"
+    }
+}

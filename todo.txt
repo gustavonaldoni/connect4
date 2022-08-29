@@ -1,0 +1,49 @@
+LISTA DE AFAZERES - CONNECT 4
+
+TABULEIRO:
+- Arte tabuleiro OK
+- Posicionamento correto das peças no tabuleiro OK
+
+VITÓRIA:
+- Checagem de vitória OK
+    - Vitória por linhas OK
+    - Vitória por colunas OK
+    - Vitória por diagonais OK
+        - Esquerda pra direita OK
+        - Direita pra esquerda OK
+- Mostrar onde vitória aconteceu OK
+    (highlite nas peças vencedoras)
+
+ANIMAÇÕES:
+- Animação de introdução
+- Animação de vitória
+- Animação da peça caindo
+- Arte de fundo que se move infinitamente
+    (achar 2 -> uma pra dia e outra pra noite)
+- Dar highlite nas peça possível de ser jogada na sua respectiva coluna OK
+
+MENU PRINCIPAL:
+- Botão play
+- Botão pra trocar pro modo noturno
+- Botão pra habilitar / desabilitar efeitos sonoros
+
+PIXEL ARTS:
+- Botão play
+- Botão pra trocar pro modo noturno
+- Botão pra habilitar / desabilitar efeitos sonoros 
+- Fundo noturno
+    - Uma arte fixa
+    - Nuvens e estrelas que passam na tela
+- Fundo claro
+    - Uma arte fixa
+    - Nuvens e estrelas que passam na tela
+
+OUTROS:
+- Tela de explicação das mecânicas 
+    (antes de começar o jogo)
+- Mudar ícone da janela OK
+
+DESAFIOS:
+- IA do bot 
+
+gcc main.c -o game.exe -O1 -Wall -std=c99 -Wno-missing-braces -I include/ -L lib -lraylib -lopengl32 -lgdi32 -lwinmm
