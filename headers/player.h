@@ -4,6 +4,11 @@ typedef struct
     int numberOfPieces;
 } Player;
 
+int CheckLocationInColumn(Board board, int columnNumber);
+void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleFactor, Texture2D boardTexture, Texture2D highlitePieceTexture, int nearestPossibleRow);
+void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound);
+
+
 int CheckLocationInColumn(Board board, int columnNumber)
 {
     int i;

@@ -1,10 +1,12 @@
-int GetBoardX(Texture2D boardTexture, float scaleFactor);
-int GetBoardY(Texture2D boardTexture, float scaleFactor);
-
 typedef struct
 {
     int canvas[6][7];
 } Board;
+
+int GetBoardX(Texture2D boardTexture, float scaleFactor);
+int GetBoardY(Texture2D boardTexture, float scaleFactor);
+void ResetBoard(Board *board);
+void DrawBoard(Board board, Texture2D boardTexture, Texture2D yellowPieceTexture, Texture2D redPieceTexture);
 
 int GetBoardX(Texture2D boardTexture, float scaleFactor)
 {

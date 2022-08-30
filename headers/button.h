@@ -5,6 +5,10 @@ typedef struct
     
 } Button;
 
+void DrawButton(Button button, float scaleFactor);
+void DrawTopRightButtons(Button buttons[3]);
+Rectangle GetTopRightButtonRec(int index, Button topRightButtons[3], float scaleFactor);
+
 void DrawButton(Button button, float scaleFactor)
 {
     DrawTextureEx(button.texture, (Vector2){button.x, button.y}, 0, scaleFactor, RAYWHITE);

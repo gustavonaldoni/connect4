@@ -1,3 +1,7 @@
+void AddWinnerPieceToList(int i, int j, int winnerPiecesCoordinates[], int position);
+void HighliteWinnerPieces(int winnerPiecesCoordinates[], Texture2D highlitePieceTexture, Texture2D boardTexture);
+bool CheckWin(Board board, Player player, int winnerPiecesCoordinates[]);
+
 void AddWinnerPieceToList(int i, int j, int winnerPiecesCoordinates[], int position)
 {
     winnerPiecesCoordinates[position] = i;
