@@ -6,7 +6,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#define SCALE_FACTOR_TOP_RIGHT_BUTTONS 3
+#define SCALE_FACTOR_TOP_RIGHT_BUTTONS 3.0
+#define SCALE_FACTOR_BOARD_AND_PIECES 6.0
 
 bool pause = false;
 int turn = 1;
@@ -90,7 +91,7 @@ int main()
 			DrawText("PLAYER 2 WINS", (GetScreenWidth() - MeasureText("PLAYER 2 WINS", 30)) / 2, 100, 30, BLACK);
 		}
 
-		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), (Rectangle){topRightButtons[2].x, topRightButtons[2].y, topRightButtons[2].texture.width * SCALE_FACTOR_TOP_RIGHT_BUTTONS, topRightButtons[2].texture.height * SCALE_FACTOR_TOP_RIGHT_BUTTONS}))
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(2, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
 		{
 			ResetBoard(&board);
 		}

@@ -26,3 +26,11 @@ void DrawTopRightButtons(Button buttons[3])
         DrawButton(buttons[i], scaleFactor);
     }
 }
+
+Rectangle GetTopRightButtonRec(int index, Button topRightButtons[3], float scaleFactor)
+{
+    return (Rectangle){topRightButtons[index].x, 
+                        topRightButtons[index].y, 
+                        topRightButtons[index].texture.width * scaleFactor, 
+                        topRightButtons[index].texture.height * scaleFactor};
+}
