@@ -100,15 +100,9 @@ int main()
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(1, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
 		{
 			if (isSoundOn)
-			{
 				isSoundOn = false;
-				DrawButton(volumeOnButton, SCALE_FACTOR_TOP_RIGHT_BUTTONS);
-			}
 			else
-			{
 				isSoundOn = true;
-				DrawButton(volumeOffButton, SCALE_FACTOR_TOP_RIGHT_BUTTONS);
-			}
 		}
 
 		EndDrawing();
