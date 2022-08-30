@@ -5,8 +5,8 @@ typedef struct
 } Player;
 
 int CheckLocationInColumn(Board board, int columnNumber);
-void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleFactor, Texture2D boardTexture, Texture2D highlitePieceTexture, int nearestPossibleRow);
-void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound, bool isSoundOn);
+void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleFactor, Texture2D boardTexture, Texture2D highlitePieceTexture, int nearestPossibleRow, int floorHeight);
+void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound, bool isSoundOn, Floor floor);
 
 int CheckLocationInColumn(Board board, int columnNumber)
 {
@@ -23,7 +23,7 @@ int CheckLocationInColumn(Board board, int columnNumber)
     return 5;
 }
 
-void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleFactor, Texture2D boardTexture, Texture2D highlitePieceTexture, int nearestPossibleRow)
+void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleFactor, Texture2D boardTexture, Texture2D highlitePieceTexture, int nearestPossibleRow, int floorHeight)
 {
     int x, y;
     int boardX, boardY;
@@ -34,7 +34,7 @@ void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleF
     space = 5;
 
     boardX = GetBoardX(boardTexture, scaleFactor);
-    boardY = GetBoardY(boardTexture, scaleFactor);
+    boardY = GetBoardY(boardTexture, scaleFactor, floorHeight);
 
     x = boardX + scaleFactor * space + scaleFactor * (*position) * (space + 9);
     y = GetScreenHeight() - scaleFactor * (boardTexture.height + 20);
@@ -48,7 +48,7 @@ void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleF
         DrawTextureEx(highlitePieceTexture, (Vector2){highliteX, highliteY}, 0, scaleFactor, RAYWHITE);
 }
 
-void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound, bool isSoundOn)
+void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound, bool isSoundOn, Floor floor)
 {
     float scaleFactor = 6;
     int nearestPossibleRow;
@@ -73,7 +73,7 @@ void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTe
     }
 
     nearestPossibleRow = CheckLocationInColumn(*board, *position);
-    DrawTurn(player, pieceTexture, position, scaleFactor, boardTexture, highlitePieceTexture, nearestPossibleRow);
+    DrawTurn(player, pieceTexture, position, scaleFactor, boardTexture, highlitePieceTexture, nearestPossibleRow, floor.texture.height);
 
     if (IsKeyPressed(KEY_SPACE) || IsKeyPressed(KEY_ENTER))
     {

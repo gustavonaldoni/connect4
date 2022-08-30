@@ -25,7 +25,8 @@ ANIMAÇÕES:
 MENU PRINCIPAL:
 - Botão play
 - Botão pra trocar pro modo noturno
-- Botão pra habilitar / desabilitar efeitos sonoros
+- Botão pra habilitar / desabilitar efeitos sonoros OK
+- Botão fechar jogo OK
 
 PIXEL ARTS:
 - Botão ativar som OK

@@ -1,4 +1,5 @@
 #include "include/raylib.h"
+#include "headers/floor.h"
 #include "headers/board.h"
 #include "headers/player.h"
 #include "headers/winCondition.h"
@@ -65,6 +66,11 @@ int main()
 								 volumeOffButton,
 								 restartGameButton};
 
+	Floor floor;
+	floor.texture = LoadTexture("images/floor/floor.png");
+	floor.x = 0;
+	floor.y = GetScreenHeight() - floor.texture.height;
+
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
@@ -72,23 +78,24 @@ int main()
 		DrawTextureEx(dayBackgroundTexture, (Vector2){0, 0}, 0, 1.0f, RAYWHITE);
 
 		DrawTopRightButtons(topRightButtons, isSoundOn, &volumeOnButton);
-		DrawBoard(board, boardTexture, yellowPieceTexture, redPieceTexture);
+		DrawBoard(board, boardTexture, yellowPieceTexture, redPieceTexture, floor);
+		DrawFloor(floor);
 
 		if (turn == 1)
-			Play(player1, yellowPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn);
+			Play(player1, yellowPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn, floor);
 
 		else if (turn == 2)
-			Play(player2, redPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn);
+			Play(player2, redPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn, floor);
 
 		if (CheckWin(board, player1, winnerPiecesCoordinates))
 		{
-			HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture);
+			HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture, floor);
 			DrawText("PLAYER 1 WINS", (GetScreenWidth() - MeasureText("PLAYER 1 WINS", 30)) / 2, 100, 30, BLACK);
 		}
 
 		if (CheckWin(board, player2, winnerPiecesCoordinates))
 		{
-			HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture);
+			HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture, floor);
 			DrawText("PLAYER 2 WINS", (GetScreenWidth() - MeasureText("PLAYER 2 WINS", 30)) / 2, 100, 30, BLACK);
 		}
 
@@ -105,6 +112,12 @@ int main()
 				isSoundOn = true;
 		}
 
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(0, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
+		{
+			CloseWindow();
+			exit(1);
+		}
+
 		EndDrawing();
 	}
 
@@ -113,6 +126,8 @@ int main()
 	UnloadTexture(redPieceTexture);
 
 	UnloadTexture(dayBackgroundTexture);
+
+	UnloadTexture(floor.texture);
 
 	UnloadSound(coinSound);
 

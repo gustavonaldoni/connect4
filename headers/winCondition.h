@@ -1,5 +1,5 @@
 void AddWinnerPieceToList(int i, int j, int winnerPiecesCoordinates[], int position);
-void HighliteWinnerPieces(int winnerPiecesCoordinates[], Texture2D highlitePieceTexture, Texture2D boardTexture);
+void HighliteWinnerPieces(int winnerPiecesCoordinates[], Texture2D highlitePieceTexture, Texture2D boardTexture, Floor floor);
 bool CheckWin(Board board, Player player, int winnerPiecesCoordinates[]);
 
 void AddWinnerPieceToList(int i, int j, int winnerPiecesCoordinates[], int position)
@@ -8,7 +8,7 @@ void AddWinnerPieceToList(int i, int j, int winnerPiecesCoordinates[], int posit
     winnerPiecesCoordinates[position + 1] = j;
 }
 
-void HighliteWinnerPieces(int winnerPiecesCoordinates[], Texture2D highlitePieceTexture, Texture2D boardTexture)
+void HighliteWinnerPieces(int winnerPiecesCoordinates[], Texture2D highlitePieceTexture, Texture2D boardTexture, Floor floor)
 {
     int space;
     int boardX, boardY;
@@ -20,7 +20,7 @@ void HighliteWinnerPieces(int winnerPiecesCoordinates[], Texture2D highlitePiece
     scaleFactor = 6;
 
     boardX = GetBoardX(boardTexture, scaleFactor);
-    boardY = GetBoardY(boardTexture, scaleFactor);
+    boardY = GetBoardY(boardTexture, scaleFactor, floor.texture.height);
 
     x = boardX + (space * scaleFactor);
     y = boardY + (space * scaleFactor);

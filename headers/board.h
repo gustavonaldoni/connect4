@@ -4,18 +4,18 @@ typedef struct
 } Board;
 
 int GetBoardX(Texture2D boardTexture, float scaleFactor);
-int GetBoardY(Texture2D boardTexture, float scaleFactor);
+int GetBoardY(Texture2D boardTexture, float scaleFactor, int floorHeight);
 void ResetBoard(Board *board);
-void DrawBoard(Board board, Texture2D boardTexture, Texture2D yellowPieceTexture, Texture2D redPieceTexture);
+void DrawBoard(Board board, Texture2D boardTexture, Texture2D yellowPieceTexture, Texture2D redPieceTexture, Floor floor);
 
 int GetBoardX(Texture2D boardTexture, float scaleFactor)
 {
     return (GetScreenWidth() - scaleFactor * boardTexture.width) / 2;
 }
 
-int GetBoardY(Texture2D boardTexture, float scaleFactor)
+int GetBoardY(Texture2D boardTexture, float scaleFactor, int floorHeight)
 {
-    return GetScreenHeight() - scaleFactor * boardTexture.height;
+    return GetScreenHeight() - (scaleFactor * boardTexture.height + floorHeight) + 20;
 }
 
 void ResetBoard(Board *board)
@@ -31,7 +31,7 @@ void ResetBoard(Board *board)
     }
 }
 
-void DrawBoard(Board board, Texture2D boardTexture, Texture2D yellowPieceTexture, Texture2D redPieceTexture)
+void DrawBoard(Board board, Texture2D boardTexture, Texture2D yellowPieceTexture, Texture2D redPieceTexture, Floor floor)
 {
     int i, j;
     int x, y;
@@ -43,7 +43,7 @@ void DrawBoard(Board board, Texture2D boardTexture, Texture2D yellowPieceTexture
     scaleFactor = 6;
 
     boardX = GetBoardX(boardTexture, scaleFactor);
-    boardY = GetBoardY(boardTexture, scaleFactor);
+    boardY = GetBoardY(boardTexture, scaleFactor, floor.texture.height);
 
     Vector2 boardPosition = {boardX, boardY};
 
