@@ -26,4 +26,3 @@ void DrawTopRightButtons(Button buttons[3])
         DrawButton(buttons[i], scaleFactor);
     }
 }
-

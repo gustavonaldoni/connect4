@@ -6,6 +6,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#define SCALE_FACTOR_TOP_RIGHT_BUTTONS 3
+
 bool pause = false;
 int turn = 1;
 int position = 0;
@@ -58,8 +60,8 @@ int main()
 	restartGameButton.texture = LoadTexture("images/buttons/buttonRestartGame.png");
 
 	Button topRightButtons[3] = {exitGameButton,
-								volumeOffButton, 
-								restartGameButton};
+								 volumeOffButton,
+								 restartGameButton};
 
 	while (!WindowShouldClose())
 	{
@@ -69,10 +71,10 @@ int main()
 
 		DrawTopRightButtons(topRightButtons);
 		DrawBoard(board, boardTexture, yellowPieceTexture, redPieceTexture);
-		
+
 		if (turn == 1)
 			Play(player1, yellowPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound);
-		
+
 		else if (turn == 2)
 			Play(player2, redPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound);
 
@@ -81,11 +83,16 @@ int main()
 			HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture);
 			DrawText("PLAYER 1 WINS", (GetScreenWidth() - MeasureText("PLAYER 1 WINS", 30)) / 2, 100, 30, BLACK);
 		}
-			
+
 		if (CheckWin(board, player2, winnerPiecesCoordinates))
 		{
 			HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture);
 			DrawText("PLAYER 2 WINS", (GetScreenWidth() - MeasureText("PLAYER 2 WINS", 30)) / 2, 100, 30, BLACK);
+		}
+
+		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), (Rectangle){topRightButtons[2].x, topRightButtons[2].y, topRightButtons[2].texture.width * SCALE_FACTOR_TOP_RIGHT_BUTTONS, topRightButtons[2].texture.height * SCALE_FACTOR_TOP_RIGHT_BUTTONS}))
+		{
+			ResetBoard(&board);
 		}
 
 		EndDrawing();
