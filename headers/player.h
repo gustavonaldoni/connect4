@@ -6,8 +6,7 @@ typedef struct
 
 int CheckLocationInColumn(Board board, int columnNumber);
 void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleFactor, Texture2D boardTexture, Texture2D highlitePieceTexture, int nearestPossibleRow);
-void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound);
-
+void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound, bool isSoundOn);
 
 int CheckLocationInColumn(Board board, int columnNumber)
 {
@@ -49,7 +48,7 @@ void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleF
         DrawTextureEx(highlitePieceTexture, (Vector2){highliteX, highliteY}, 0, scaleFactor, RAYWHITE);
 }
 
-void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound)
+void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTexture, Texture2D highlitePieceTexture, int *turn, int *position, Sound coinSound, bool isSoundOn)
 {
     float scaleFactor = 6;
     int nearestPossibleRow;
@@ -85,9 +84,10 @@ void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTe
             if (nearestPossibleRow >= 0)
             {
                 (*board).canvas[nearestPossibleRow][*position] = 1;
-                PlaySound(coinSound);
-
                 (*turn) = 2;
+
+                if (isSoundOn)
+                    PlaySound(coinSound);
             }
         }
 
@@ -98,9 +98,10 @@ void Play(Player player, Texture2D pieceTexture, Board *board, Texture2D boardTe
             if (nearestPossibleRow >= 0)
             {
                 (*board).canvas[nearestPossibleRow][*position] = 2;
-                PlaySound(coinSound);
-
                 (*turn) = 1;
+
+                if (isSoundOn)
+                    PlaySound(coinSound);
             }
         }
     }

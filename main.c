@@ -10,6 +10,7 @@
 #define SCALE_FACTOR_BOARD_AND_PIECES 6.0
 
 bool pause = false;
+bool isSoundOn = true;
 int turn = 1;
 int position = 0;
 
@@ -70,14 +71,14 @@ int main()
 		ClearBackground(RAYWHITE);
 		DrawTextureEx(dayBackgroundTexture, (Vector2){0, 0}, 0, 1.0f, RAYWHITE);
 
-		DrawTopRightButtons(topRightButtons);
+		DrawTopRightButtons(topRightButtons, isSoundOn, &volumeOnButton);
 		DrawBoard(board, boardTexture, yellowPieceTexture, redPieceTexture);
 
 		if (turn == 1)
-			Play(player1, yellowPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound);
+			Play(player1, yellowPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn);
 
 		else if (turn == 2)
-			Play(player2, redPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound);
+			Play(player2, redPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn);
 
 		if (CheckWin(board, player1, winnerPiecesCoordinates))
 		{
@@ -91,9 +92,23 @@ int main()
 			DrawText("PLAYER 2 WINS", (GetScreenWidth() - MeasureText("PLAYER 2 WINS", 30)) / 2, 100, 30, BLACK);
 		}
 
-		if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(2, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(2, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
 		{
 			ResetBoard(&board);
+		}
+
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(1, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
+		{
+			if (isSoundOn)
+			{
+				isSoundOn = false;
+				DrawButton(volumeOnButton, SCALE_FACTOR_TOP_RIGHT_BUTTONS);
+			}
+			else
+			{
+				isSoundOn = true;
+				DrawButton(volumeOffButton, SCALE_FACTOR_TOP_RIGHT_BUTTONS);
+			}
 		}
 
 		EndDrawing();
