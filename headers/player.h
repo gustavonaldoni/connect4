@@ -37,7 +37,7 @@ void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleF
     boardY = GetBoardY(boardTexture, scaleFactor, floorHeight);
 
     x = boardX + scaleFactor * space + scaleFactor * (*position) * (space + 9);
-    y = GetScreenHeight() - scaleFactor * (boardTexture.height + 20);
+    y = GetScreenHeight() - scaleFactor * (boardTexture.height + 35);
 
     DrawTextureEx(pieceTexture, (Vector2){x, y}, 0, scaleFactor, RAYWHITE);
 

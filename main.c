@@ -4,6 +4,7 @@
 #include "headers/player.h"
 #include "headers/winCondition.h"
 #include "headers/button.h"
+#include "headers/playAgain.h"
 #include <stdlib.h>
 #include <stdbool.h>
 
@@ -12,6 +13,7 @@
 
 bool pause = false;
 bool isSoundOn = true;
+bool hasAPlayerWon = false;
 int turn = 1;
 int position = 0;
 
@@ -71,6 +73,9 @@ int main()
 	floor.x = 0;
 	floor.y = GetScreenHeight() - floor.texture.height;
 
+	Button playAgainButton;
+	playAgainButton.texture = LoadTexture("images/buttons/buttonPlayAgain.png");
+
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
@@ -81,30 +86,49 @@ int main()
 		DrawBoard(board, boardTexture, yellowPieceTexture, redPieceTexture, floor);
 		DrawFloor(floor);
 
-		if (turn == 1)
-			Play(player1, yellowPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn, floor);
-
-		else if (turn == 2)
-			Play(player2, redPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn, floor);
-
-		if (CheckWin(board, player1, winnerPiecesCoordinates))
+		if (hasAPlayerWon == false)
 		{
-			HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture, floor);
-			DrawText("PLAYER 1 WINS", (GetScreenWidth() - MeasureText("PLAYER 1 WINS", 30)) / 2, 100, 30, BLACK);
+			if (turn == 1)
+				Play(player1, yellowPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn, floor);
+
+			else if (turn == 2)
+				Play(player2, redPieceTexture, &board, boardTexture, highlitePieceTexture, &turn, &position, coinSound, isSoundOn, floor);
+
+			if (CheckWin(board, player1, winnerPiecesCoordinates))
+			{
+				hasAPlayerWon = true;
+				HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture, floor);
+			}
+
+			if (CheckWin(board, player2, winnerPiecesCoordinates))
+			{
+				hasAPlayerWon = true;
+				HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture, floor);
+			}
 		}
 
-		if (CheckWin(board, player2, winnerPiecesCoordinates))
+		else
 		{
 			HighliteWinnerPieces(winnerPiecesCoordinates, highlitePieceTexture, boardTexture, floor);
-			DrawText("PLAYER 2 WINS", (GetScreenWidth() - MeasureText("PLAYER 2 WINS", 30)) / 2, 100, 30, BLACK);
+			DrawPlayAgainButton(&playAgainButton);
+
+			if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
+				CheckCollisionPointRec(GetMousePosition(), GetPlayAgainButtonRec(playAgainButton, 4.0)))
+			{
+				hasAPlayerWon = false;
+				ResetBoard(&board);
+			}
 		}
 
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(2, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
+			CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(2, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)) &&
+			hasAPlayerWon == false)
 		{
 			ResetBoard(&board);
 		}
 
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(1, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
+			CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(1, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
 		{
 			if (isSoundOn)
 				isSoundOn = false;
@@ -112,7 +136,8 @@ int main()
 				isSoundOn = true;
 		}
 
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(0, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) &&
+			CheckCollisionPointRec(GetMousePosition(), GetTopRightButtonRec(0, topRightButtons, SCALE_FACTOR_TOP_RIGHT_BUTTONS)))
 		{
 			CloseWindow();
 			exit(1);
@@ -128,6 +153,7 @@ int main()
 	UnloadTexture(dayBackgroundTexture);
 
 	UnloadTexture(floor.texture);
+	UnloadTexture(playAgainButton.texture);
 
 	UnloadSound(coinSound);
 
