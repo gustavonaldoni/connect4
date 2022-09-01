@@ -39,7 +39,8 @@ void DrawTurn(Player player, Texture2D pieceTexture, int *position, float scaleF
     x = boardX + scaleFactor * space + scaleFactor * (*position) * (space + 9);
     y = GetScreenHeight() - scaleFactor * (boardTexture.height + 35);
 
-    DrawTextureEx(pieceTexture, (Vector2){x, y}, 0, scaleFactor, RAYWHITE);
+    DrawTextureRotation(pieceTexture, x + scaleFactor * space, y, 90, scaleFactor);
+    //DrawTextureEx(pieceTexture, (Vector2){x, y}, 0, scaleFactor, WHITE);
 
     highliteX = x;
     highliteY = boardY + scaleFactor * space + scaleFactor * nearestPossibleRow * (space + 9);

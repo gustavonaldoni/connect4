@@ -1,5 +1,6 @@
 #include "include/raylib.h"
 #include "headers/floor.h"
+#include "headers/utils.h"
 #include "headers/board.h"
 #include "headers/player.h"
 #include "headers/winCondition.h"

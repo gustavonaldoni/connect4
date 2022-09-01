@@ -4,6 +4,8 @@
         "stdlib.h": "c",
         "soundbar.h": "c",
         "raylib.h": "c",
-        "player.h": "c"
+        "player.h": "c",
+        "utils.h": "c",
+        "playagain.h": "c"
     }
 }
